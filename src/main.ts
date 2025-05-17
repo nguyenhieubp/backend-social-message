@@ -10,6 +10,7 @@ async function bootstrap() {
   });
 
   await app.listen(3000);
+  console.log('Mongo URI:', process.env.MONGODB_URI);
   console.log('Server running on port 3000');
 }
 bootstrap();

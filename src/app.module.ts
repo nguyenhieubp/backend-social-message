@@ -7,12 +7,17 @@ import { ConversationModule } from './conversations/conversation.module';
 import { AppService } from './app.service';
 import { SocketModule } from './socket/socket.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(
-      // 'mongodb://admin:123456789@mongodb:27017/chat-db?authSource=admin',
-      'mongodb://admin:123456789@localhost:27017/chat-db?authSource=admin',
+      process.env.MONGODB_URI,
+      {
+        serverSelectionTimeoutMS: 10000,
+        socketTimeoutMS: 10000,
+      }
     ),
     MessageModule,
     ConversationModule,
